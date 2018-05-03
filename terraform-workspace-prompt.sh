@@ -1,14 +1,8 @@
 #!/usr/bin/env bash
 
-function check_plan_exists()
-{
-    $(command terraform validate > /dev/null 2>&1)
-    echo "$?"
-}
-
 function terraform_prompt()
 {
-    if [ $(check_plan_exists) -eq 0 ]; then
+    if [ -d .terraform ]; then
         workspace="$(command terraform workspace show 2>/dev/null)"
         echo " (${workspace})"
     fi
